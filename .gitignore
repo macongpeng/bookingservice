@@ -1,3 +1,7 @@
+# IntelliJ Project files
+.idea
+# Gradle files
+.gradle
 # Build folder
 build/*
 
