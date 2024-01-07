@@ -1,5 +1,7 @@
 package com.grandia.controller
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import com.grandia.model.Customer
 import com.grandia.service.CustomerService
 import org.springframework.http.ResponseEntity
@@ -9,8 +11,17 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/customers")
 class CustomerController(private val customerService: CustomerService) {
 
+    //@GetMapping
+    //fun getAllCustomers(): ResponseEntity<List<Customer>> = ResponseEntity.ok(customerService.findAllCustomers())
+
     @GetMapping
-    fun getAllCustomers(): ResponseEntity<List<Customer>> = ResponseEntity.ok(customerService.findAllCustomers())
+    fun listCustomers(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "10") size: Int
+    ): Page<Customer> {
+        val pageable = PageRequest.of(page, size)
+        return customerService.getAllCustomers(pageable)
+    }
 
     @GetMapping("/{id}")
     fun getCustomerById(@PathVariable id: Long): ResponseEntity<Customer> =
