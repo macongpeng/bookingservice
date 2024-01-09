@@ -32,6 +32,12 @@ class CustomerController(private val customerService: CustomerService) {
     fun createCustomer(@RequestBody customer: Customer): ResponseEntity<Customer> =
         ResponseEntity.ok(customerService.saveCustomer(customer))
 
+    @PostMapping("/signup")
+
+    fun signUp(@RequestBody newCustomer: Customer): Customer {
+        return customerService.signUp(newCustomer)
+    }       
+
     @PutMapping("/{id}")
     fun updateCustomer(@PathVariable id: Long, @RequestBody customer: Customer): ResponseEntity<Customer> =
         if (customerService.findCustomerById(id).isPresent) {

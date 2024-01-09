@@ -15,12 +15,13 @@ class CustomerControllerTest {
 
     @Test
     fun `When getCustomerById then return Customer`() {
-        val customer = Customer(name = "Test Customer", email = "test@example.com")
+        val customer = Customer(name = "Test Customer", password = "test", email = "test@example.com")
         Mockito.`when`(customerService.findCustomerById(Mockito.anyLong())).thenReturn(java.util.Optional.of(customer))
 
         val response = customerController.getCustomerById(1L)
         assertEquals(response.statusCode, HttpStatus.OK)
         assertNotNull(response.body)
         assertEquals(response.body?.email, customer.email)
+        assertEquals(response.body?.password, customer.password)
     }
 }

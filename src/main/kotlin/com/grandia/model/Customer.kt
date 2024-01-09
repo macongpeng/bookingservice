@@ -15,6 +15,9 @@ data class Customer(
     @Column(nullable = false, unique = true, length = 100)
     var email: String,
 
+    @Column(nullable = false, length = 100)
+    var password: String,    
+
     @Column(nullable = true)
     var phoneNumber: String? = null,
 

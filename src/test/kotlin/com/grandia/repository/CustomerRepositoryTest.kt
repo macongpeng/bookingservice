@@ -15,12 +15,13 @@ class CustomerRepositoryTest @Autowired constructor(
 
     @Test
     fun `When findByEmail then return Customer`() {
-        val customer = Customer(name = "Test Customer", email = "test@example.com")
+        val customer = Customer(name = "Test Customer", password = "test", email = "test@example.com")
         entityManager.persist(customer)
         entityManager.flush()
 
         val found = customerRepository.findByEmail(customer.email)
         assertNotNull(found)
         assertEquals(found?.email, customer.email)
+        assertEquals(found?.password, customer.password)
     }
 }
