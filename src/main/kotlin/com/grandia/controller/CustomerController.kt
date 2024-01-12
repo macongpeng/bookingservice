@@ -4,8 +4,10 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import com.grandia.model.Customer
 import com.grandia.service.CustomerService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 
 @RestController
 @RequestMapping("/customers")
@@ -36,7 +38,16 @@ class CustomerController(private val customerService: CustomerService) {
 
     fun signUp(@RequestBody newCustomer: Customer): Customer {
         return customerService.signUp(newCustomer)
-    }       
+    }
+    
+    @GetMapping("/active-account")
+    fun confirmAccount(@RequestParam("token") confirmationToken: String) {
+        val customer = customerService.findByConfirmationToken(confirmationToken)
+                ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "This token does not exist")
+
+        customer.confirmationToken = null
+        customerService.saveCustomer(customer)
+    }    
 
     @PutMapping("/{id}")
     fun updateCustomer(@PathVariable id: Long, @RequestBody customer: Customer): ResponseEntity<Customer> =

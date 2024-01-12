@@ -5,6 +5,7 @@ import com.grandia.repository.CustomerRepository
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.mockito.Mockito
+import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 
@@ -12,7 +13,8 @@ class CustomerServiceTest {
 
     private val customerRepository: CustomerRepository = Mockito.mock(CustomerRepository::class.java)
     private val passwordEncoder: BCryptPasswordEncoder = Mockito.mock(BCryptPasswordEncoder::class.java)
-    private val customerService = CustomerService(customerRepository, passwordEncoder)
+    private val mailSender: JavaMailSender = Mockito.mock(JavaMailSender::class.java);
+    private val customerService = CustomerService(customerRepository, passwordEncoder, mailSender)
 
     @Test
     fun `When saveCustomer then customer is saved`() {

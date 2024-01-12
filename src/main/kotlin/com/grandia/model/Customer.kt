@@ -9,7 +9,7 @@ data class Customer(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = true, length = 100)
     var name: String,
 
     @Column(nullable = false, unique = true, length = 100)
@@ -22,5 +22,8 @@ data class Customer(
     var phoneNumber: String? = null,
 
     @Column(nullable = false)
-    var registeredAt: LocalDateTime = LocalDateTime.now()
+    var registeredAt: LocalDateTime = LocalDateTime.now(),
+
+    @Column(nullable = true)
+    var confirmationToken: String? = null
 )
