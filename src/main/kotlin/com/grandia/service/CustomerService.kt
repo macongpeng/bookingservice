@@ -14,7 +14,11 @@ import java.util.*
 import java.util.UUID
 
 @Service
-class CustomerService(private val customerRepository: CustomerRepository, private val passwordEncoder: BCryptPasswordEncoder, private val mailSender: JavaMailSender) {
+class CustomerService(
+    private val customerRepository: CustomerRepository, 
+    private val passwordEncoder: BCryptPasswordEncoder, 
+    private val mailSender: JavaMailSender) { 
+
     fun findAllCustomers(): List<Customer> = customerRepository.findAll()
 
     fun getAllCustomers(pageable: Pageable): Page<Customer> {
