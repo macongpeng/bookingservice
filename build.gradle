@@ -40,6 +40,10 @@ dependencies {
 
     // AssertJ for fluent assertions
     testImplementation 'org.assertj:assertj-core:3.19.0' // use the latest version
+
+    // Add this line for Kotlin test dependency
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+
 }
 
 tasks.named('test') {
